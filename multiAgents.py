@@ -178,7 +178,7 @@ class MinimaxAgent(MultiAgentSearchAgent):
                     nextDepth += 1
 
                 bestScore = float('inf')
-                bestAction = None
+                
                 for action in gameState.getLegalActions(agentIndex):
                     successor = gameState.generateSuccessor(agentIndex, action)
                     score, _ = minimax(nextAgent, nextDepth, successor)
@@ -186,9 +186,13 @@ class MinimaxAgent(MultiAgentSearchAgent):
                         bestScore = score
                         bestAction = action
 
-                return bestScore, bestAction
+                return bestScore, None
 
         _, bestMove = minimax(0, 0, gameState)
+        if bestMove is None:
+            legal = gameState.getLegalActions(0)
+            return legal[0]
+    
         return bestMove
 
         util.raiseNotDefined()
